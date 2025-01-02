@@ -17,7 +17,7 @@
                     <div class="card-image">
                         <img src="{{ $mizeravel->imagem }}">
                         <span class="card-title">{{ $mizeravel->nome }}</span>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">visibility</i></a>
+                        <a href="{{ Route('site.pessoa', $mizeravel->id)}}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">visibility</i></a>
                     </div>
                     <div class="card-content">
                         <p>{{ Str::limit($mizeravel->situacao, 20)}}</p>
@@ -25,6 +25,11 @@
                 </div>
             </div>
         @endforeach
+    </div>
+    
+
+    <div class="row center">
+        {{ $mizeraveis->links('custom.pagination')}}
     </div>
 @endif
 

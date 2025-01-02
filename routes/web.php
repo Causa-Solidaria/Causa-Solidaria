@@ -19,5 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Rota do recurso "Doar"
+// Rota do recurso "Doar" (cria todas as rotas RESTful)
 Route::resource('doar', MizeraveisController::class);
+
+// Corrigir a rota para os detalhes do "Mizerável"
+Route::get('/mizeraveis/{id}', [MizeraveisController::class, 'details'])->name('site.pessoa');

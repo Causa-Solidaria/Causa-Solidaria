@@ -21,7 +21,7 @@ class MizeraveisController extends Controller
             $mizeraveis = Mizeraveis::where('nome', 'like', '%' . $search . '%')->get();
         } else {
             // Se não houver busca, pega todos os registros
-            $mizeraveis = Mizeraveis::all();
+            $mizeraveis = Mizeraveis::paginate(5);
         }
 
         // Retorna a view com a lista e o termo de busca
@@ -30,6 +30,16 @@ class MizeraveisController extends Controller
             'search' => $search
         ]);
     }
+
+    public function details($id)
+    {
+        // Buscando o registro pelo ID
+        $mizeravel = Mizeraveis::find($id); // Usar 'find' simplifica em vez de 'where->first'
+    
+        // Retornar para a view com a variável correta
+        return view('site.pessoa', compact('mizeravel'));
+    }
+    
 
     // Outros métodos (create, store, etc.) podem ser implementados conforme necessário
 
