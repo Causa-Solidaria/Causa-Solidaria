@@ -10,27 +10,29 @@
         </span>
     </div>
 @else
-    <div class="row"> <!-- Mover a row para fora do loop -->
+    <div class="row">
         @foreach ($mizeraveis as $mizeravel)
-            <div class="col s12 m6 l3"> <!-- Ajuste a largura das colunas -->
+            <div class="col s12 m6 l3">
                 <div class="card card-square">
                     <div class="card-image">
-                        <img src="{{ $mizeravel->imagem }}">
+                        <img src="{{ $mizeravel->imagem }}" alt="Imagem de {{ $mizeravel->nome }}">
                         <span class="card-title">{{ $mizeravel->nome }}</span>
-                        <a href="{{ Route('site.pessoa', $mizeravel->id)}}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">visibility</i></a>
+                        <a href="{{ route('site.pessoa', $mizeravel->id) }}" class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i class="material-icons">visibility</i>
+                        </a>
                     </div>
                     <div class="card-content">
-                        <p>{{ Str::limit($mizeravel->situacao, 20)}}</p>
+                        <p>{{ Str::limit($mizeravel->situacao, 20) }}</p>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
-    
 
     <div class="row center">
-        {{ $mizeraveis->links('custom.pagination')}}
+        {{ $mizeraveis->appends(['search' => request('search')])->links('custom.pagination') }}
     </div>
 @endif
 
 @endsection
+

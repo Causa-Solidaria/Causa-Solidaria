@@ -8,37 +8,40 @@ use Illuminate\Http\Request;
 
 class MizeraveisController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Pega o parâmetro de busca
+        // Obtém o parâmetro de busca
         $search = request('search');
 
+        // Consulta com ou sem busca, mantendo paginação
         if ($search) {
-            // Realiza a busca pelo nome
-            $mizeraveis = Mizeraveis::where('nome', 'like', '%' . $search . '%')->get();
+            $mizeraveis = Mizeraveis::where('nome', 'like', '%' . $search . '%')->paginate(5);
         } else {
-            // Se não houver busca, pega todos os registros
             $mizeraveis = Mizeraveis::paginate(5);
         }
 
-        // Retorna a view com a lista e o termo de busca
+        // Retorna a view com os resultados e o termo de busca
         return view('site.home', [
             'mizeraveis' => $mizeraveis,
-            'search' => $search
+            'search' => $search,
         ]);
     }
 
+    /**
+     * Exibe os detalhes de um registro específico.
+     */
     public function details($id)
     {
-        // Buscando o registro pelo ID
-        $mizeravel = Mizeraveis::find($id); // Usar 'find' simplifica em vez de 'where->first'
-    
-        // Retornar para a view com a variável correta
+        // Busca o registro pelo ID
+        $mizeravel = Mizeraveis::findOrFail($id);
+
+        // Retorna a view com os detalhes do registro
         return view('site.pessoa', compact('mizeravel'));
     }
+
     
 
     // Outros métodos (create, store, etc.) podem ser implementados conforme necessário
