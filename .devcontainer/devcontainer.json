@@ -1,0 +1,3 @@
+{
+    "postStartCommand": "chmod +x criar_env.sh iniciar_contaneir.sh abrir_container.sh"
+}
